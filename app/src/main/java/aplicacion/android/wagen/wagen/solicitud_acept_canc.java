@@ -21,7 +21,7 @@ public class solicitud_acept_canc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitud_acept_canc);
 
-        origen= findViewById(R.id.txtLugOrig);
+        /*origen= findViewById(R.id.txtLugOrig);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child("DupqY66cdLcbmFsw9ayMxcTkVNv2");
 
         ValueEventListener postListener = new ValueEventListener() {
@@ -39,6 +39,7 @@ public class solicitud_acept_canc extends AppCompatActivity {
             }
         };
         mDatabase.addValueEventListener(postListener);
+        */
     }
 
     public void displayData(Usuario usuario){

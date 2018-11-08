@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         iniciarSesion= findViewById(R.id.btnInicia);
         iniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,6 +24,7 @@
         <activity android:name=".solicitud_creacion" />
         <activity android:name=".CrearCuenta" />
         <activity android:name=".piedidosActuales"></activity>
+        <activity android:name=".historialTransportista"></activity>
     </application>
 
 </manifest>

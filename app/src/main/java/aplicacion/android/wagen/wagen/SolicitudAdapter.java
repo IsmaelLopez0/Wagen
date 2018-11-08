@@ -1,6 +1,7 @@
 package aplicacion.android.wagen.wagen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,15 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
         Solcitudes solicitudes = SolicitudList.get(i);
         solicitudViewHolder.textTiulo.setText(solicitudes.Titulo);
         solicitudViewHolder.textDescripcion.setText(solicitudes.Descripcion);
+
+        solicitudViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(mCtx,solicitud_acept_canc.class);
+                mCtx.startActivity(intent);
+            }
+        });
 
     }
 

@@ -36,35 +36,6 @@ public class historialTransportista extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private String idUsuario;
-    private ListView lActi, lComp;
-
-    public historialTransportista(String idUsuario){
-        this.idUsuario = idUsuario;
-        enlistar();
-    }
-
-    public void enlistar(){
-        lActi = (ListView) findViewById(R.id.tabItem);
-        lComp = (ListView) findViewById(R.id.tabItem2);
-        ArrayList<String> activos = new ArrayList<String>();
-        ArrayList<String> completos = new ArrayList<String>();
-        ArrayAdapter<String> adaptadorActivos;
-        ArrayAdapter<String> adaptadorCompletos;
-        String[] estado = {"activo", "activo", "lkasdgf", "kuasdftgi", "activo",};
-        for(int i=0; i<5; i++){
-            if(estado[i] == "activo"){
-                activos.add(i+"");
-            }else{
-                completos.add(i+"");
-            }
-        }
-        adaptadorActivos = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activos);
-        lActi.setAdapter(adaptadorActivos);
-
-        adaptadorCompletos = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, completos);
-        lComp.setAdapter(adaptadorCompletos);
-    }
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -74,21 +45,6 @@ public class historialTransportista extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial_transportista);
-
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));*/
 
     }
 
