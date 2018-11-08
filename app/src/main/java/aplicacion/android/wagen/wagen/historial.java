@@ -6,6 +6,9 @@ import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -27,7 +30,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class historial extends AppCompatActivity {
+public class historial extends FragmentActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -48,6 +51,11 @@ public class historial extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
+
+        /*final android.app.ActionBar ab = getActionBar();
+        ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        ab.addTab(ab.newTab().setText("Activos").setTabListener(this));*/
 
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,6 +104,27 @@ public class historial extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        if(tab.getPosition()==0){
+            activos act = new activos();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, act).commit();
+        } else if(tab.getPosition()==1){
+            completados com = new completados();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, com).commit();
+        }
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
     }
 
     /**

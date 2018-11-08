@@ -6,4 +6,19 @@
         <item>Transportista</item>
         <item>Trailero</item>
     </string-array>
+
+    <string-array name="SpinerTipoRemolque">
+        <item>Selecciona Tipo</item>
+        <item>Jaula</item>
+        <item>Caja Seca</item>
+        <item>Caja Refrigerada</item>
+        <item>Cama Baja</item>
+        <item>Plataforma</item>
+    </string-array>
+
+    <string-array name="SpinerTipoTarifa">
+        <item>Selecciona Tipo</item>
+        <item>/Tonelada</item>
+        <item>/Viaje</item>
+    </string-array>
 </resources>
