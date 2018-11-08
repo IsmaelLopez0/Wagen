@@ -1,6 +1,8 @@
 package aplicacion.android.wagen.wagen;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -42,9 +45,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class historial extends FragmentActivity implements ActionBar.TabListener {
-    private List<Solcitudes> listaSolicitudes;
-    private RecyclerView contenedor;
-    private ListAdapter adapter;
+    private RecyclerView recyclerView;
+    private SolicitudAdapter adapter;
+    private List<Solcitudes> SolicitudesList;
+
     DatabaseReference dbReference;
 
     /**
@@ -55,7 +59,6 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -66,10 +69,12 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
-        listaSolicitudes = new ArrayList<>();
-        contenedor = findViewById(R.id.container);
-        adapter = new ArrayAdapter<Solcitudes>(this,android.R.layout.simple_list_item_1,listaSolicitudes);
-        contenedor.setAdapter((RecyclerView.Adapter) adapter);
+        recyclerView = findViewById(R.id.Recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SolicitudesList = new ArrayList<>();
+        adapter = new SolicitudAdapter(this, SolicitudesList);
+        recyclerView.setAdapter(adapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,11 +85,7 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
         });
 
         dbReference = FirebaseDatabase.getInstance().getReference("Solicitudes");
-        dbReference.addListenerForSingleValueEvent(postListener);
-        String idUsuario=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Query query= FirebaseDatabase.getInstance().getReference("Solicitudes")
-                .orderByChild("idSolicitud")
-                .equalTo(idUsuario);
+
     }
 
 
@@ -130,16 +131,17 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
     }
-
     ValueEventListener postListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            listaSolicitudes.clear();
-            if (dataSnapshot.exists()){
-                Solcitudes solicitud = dataSnapshot.getValue(Solcitudes.class);
-                listaSolicitudes.add(solicitud);
+            SolicitudesList.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Solcitudes solicitud = snapshot.getValue(Solcitudes.class);
+                    SolicitudesList.add(solicitud);
+                }
+                adapter.notifyDataSetChanged();
             }
-            adapter.notify();
         }
 
         @Override
@@ -148,10 +150,12 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
         }
     };
 
-    /**
+
+        /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+        @SuppressLint("ValidFragment")
+        static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -187,7 +191,7 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
