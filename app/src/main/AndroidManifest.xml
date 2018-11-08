@@ -22,7 +22,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".solicitud_acept_canc" />
         <activity android:name=".solicitud_creacion" />
-        <activity android:name=".CrearCuenta"></activity>
+        <activity android:name=".CrearCuenta" />
     </application>
 
 </manifest>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SpinerTipoUsuario">
+        <item>Selecciona Tipo</item>
+        <item>Productor</item>
+        <item>Transportista</item>
+        <item>Trailero</item>
+    </string-array>
+</resources>
