@@ -113,9 +113,13 @@ public class solicitud_creacion extends AppCompatActivity {
             TipoTarifa.requestFocus();
             return;
         }
-        idProcutor=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+
+
+         idProcutor=FirebaseAuth.getInstance().getCurrentUser().getUid();
         idSolicitud=databaseSolicitud.push().getKey();
-        Solcitudes solicitud = new Solcitudes(titulo,lugarO,lugarD,tiporemolque,tarifa,tipotarifa,descripcion,idProcutor,idSolicitud);
+        Solcitudes solicitud = new Solcitudes(titulo,lugarO,lugarD,tiporemolque,tarifa,tipotarifa,descripcion,"null","null");
         databaseSolicitud.child(idSolicitud).setValue(solicitud);
         Toast.makeText(getApplicationContext(),"Solicitud Realizada Corrrectamente",Toast.LENGTH_SHORT).show();
     }
