@@ -40,6 +40,7 @@ public class solicitud_creacion extends AppCompatActivity {
         TipoTarifa = findViewById(R.id.listTipoTarifa);
         Descripcion = findViewById(R.id.txtDescripcion);
         auth = FirebaseAuth.getInstance();
+        createRequest=findViewById(R.id.btnSolicitar);
         databaseSolicitud = FirebaseDatabase.getInstance().getReference("Solicitudes");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.SpinerTipoRemolque, android.R.layout.simple_spinner_item);
@@ -55,9 +56,7 @@ public class solicitud_creacion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RegistrarSolicitud();
-                Intent intent = new Intent(getApplicationContext(),historial.class);
-                startActivity(intent);
-                finish();
+
             }
         });
 
@@ -117,11 +116,14 @@ public class solicitud_creacion extends AppCompatActivity {
 
 
 
-         idProcutor=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        idProcutor=FirebaseAuth.getInstance().getCurrentUser().getUid();
         idSolicitud=databaseSolicitud.push().getKey();
-        Solcitudes solicitud = new Solcitudes(titulo,lugarO,lugarD,tiporemolque,tarifa,tipotarifa,descripcion,"null","null");
+        Solcitudes solicitud = new Solcitudes(titulo,lugarO,lugarD,tiporemolque,tarifa,tipotarifa,descripcion,idProcutor,idSolicitud);
         databaseSolicitud.child(idSolicitud).setValue(solicitud);
         Toast.makeText(getApplicationContext(),"Solicitud Realizada Corrrectamente",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(),historial.class);
+        startActivity(intent);
+        finish();
     }
 
 }
