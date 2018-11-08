@@ -19,14 +19,14 @@
                 android:id="@+id/text_Titulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titulo"
+                android:text="tituloo"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:id="@+id/text_Descripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descripcion"
+                android:text="desc"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -34,6 +34,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,8 +49,9 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
     private RecyclerView recyclerView;
     private SolicitudAdapter adapter;
     private List<Solcitudes> SolicitudesList;
-
-    DatabaseReference dbReference;
+    private FirebaseUser IDU;
+    private FirebaseAuth auth;
+    private DatabaseReference dbReference;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -75,6 +77,7 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
         SolicitudesList = new ArrayList<>();
         adapter = new SolicitudAdapter(this, SolicitudesList);
         recyclerView.setAdapter(adapter);
+        auth = FirebaseAuth.getInstance();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +86,11 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
                 startActivity(productor);
             }
         });
-
-        dbReference = FirebaseDatabase.getInstance().getReference("Solicitudes");
-        dbReference.addListenerForSingleValueEvent(postListener);
-
+        IDU=auth.getCurrentUser();
+        Query query = FirebaseDatabase.getInstance().getReference("Solicitudes")
+                .orderByChild("idProcutor")
+                .equalTo(IDU.getUid());
+            query.addValueEventListener(postListener);
     }
 
 

@@ -31,9 +31,9 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
 
     @Override
     public void onBindViewHolder(@NonNull SolicitudViewHolder solicitudViewHolder, int i) {
-        Solcitudes solcitudes = SolicitudList.get(i);
-        solicitudViewHolder.textTiulo.setText(solcitudes.getTitulo());
-        solicitudViewHolder.textDescripcion.setText(solcitudes.getDescripcion());
+        Solcitudes solicitudes = SolicitudList.get(i);
+        solicitudViewHolder.textTiulo.setText(solicitudes.Titulo);
+        solicitudViewHolder.textDescripcion.setText(solicitudes.Descripcion);
 
     }
 
@@ -43,13 +43,12 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
     }
 
     class SolicitudViewHolder extends RecyclerView.ViewHolder {
-        private TextView textTiulo, textDescripcion;
+        public TextView textTiulo, textDescripcion;
 
         public SolicitudViewHolder(@NonNull View itemView) {
             super(itemView);
             textTiulo = itemView.findViewById(R.id.text_Titulo);
             textDescripcion = itemView.findViewById(R.id.text_Descripcion);
-
         }
     }
 }
