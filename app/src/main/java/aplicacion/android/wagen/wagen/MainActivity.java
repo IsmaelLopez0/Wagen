@@ -19,13 +19,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 abrirCrear();
+                finish();
             }
         });
 
     }
 
     private void abrirCrear(){
-        Intent intent = new Intent(getApplicationContext(), CrearCuenta.class);
+        Intent intent = new Intent(this, CrearCuenta.class);
         startActivity(intent);
     }
 }
