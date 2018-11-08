@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     EditText CorreoElectronico,Contraseña;
     private String TipoUsuario;
-    private String IDU;
+    private FirebaseUser IDU;
     private DatabaseReference mDatabase;
 
     @Override
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         if(auth.getCurrentUser() != null){
             //significa que el usuraio ya se logeo
         }else{
-            IDU=auth.getCurrentUser().getUid();
+            IDU=auth.getCurrentUser();
         }
     }
 
@@ -112,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
             Contraseña.requestFocus();
             return;
         }
-        IDU=auth.getCurrentUser().getUid();
+        IDU=auth.getCurrentUser();
         auth.signInWithEmailAndPassword(correo,contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                        IDU=auth.getCurrentUser().getUid();
-                        Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(IDU);
+                        IDU=auth.getCurrentUser();
+                        Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(IDU.getUid());
                         query.addListenerForSingleValueEvent(postListener);
                         if(TipoUsuario!=null){
                             if(TipoUsuario.equals("Productor")){
