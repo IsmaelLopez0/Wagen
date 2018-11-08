@@ -22,12 +22,15 @@ public class CrearCuenta extends AppCompatActivity {
     private FirebaseAuth auth;
     Spinner Spin;
     Button boton;
-    EditText Nombre,Apellidos,CorreoElectronico,TipoUsuario,Contraseña;
+    private EditText Nombre,Apellidos,CorreoElectronico,TipoUsuario,Contraseña;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_crear_cuenta);
         Spin = findViewById(R.id.Spin);
+        auth = FirebaseAuth.getInstance();
         Nombre = findViewById(R.id.txtNombre);
         Apellidos = findViewById(R.id.txtApellidos);
         CorreoElectronico = findViewById(R.id.txtCorreo);
@@ -37,15 +40,28 @@ public class CrearCuenta extends AppCompatActivity {
                 R.array.SpinerTipoUsuario, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spin.setAdapter(adapter);
-        auth = FirebaseAuth.getInstance();
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RegistrarUsuario();
+                abrirLogin();
                 finish();
             }
         });
     }
+
+    private void abrirLogin(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    protected void onStart(){
+        super.onStart();
+        if(auth.getCurrentUser() != null){
+            //significa que el usuraio ya se logeo
+        }
+    }
+
 
 
     private void RegistrarUsuario() {
@@ -90,14 +106,14 @@ public class CrearCuenta extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Usuario usuario = new Usuario(nombre, apellidos, correo, tipousuario, contraseña);
+                            Usuario user = new Usuario(nombre,apellidos,correo,tipousuario,contraseña);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(getApplicationContext(),task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Usuario Registrado Con Exito", Toast.LENGTH_SHORT).show();
                                     }else{
                                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
