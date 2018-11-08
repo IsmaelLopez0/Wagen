@@ -19,7 +19,9 @@
         <activity
             android:name=".historial"
             android:label="@string/title_activity_historial"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".solicitud_acept_canc" />
+        <activity android:name=".solicitud_creacion"></activity>
     </application>
 
 </manifest>
