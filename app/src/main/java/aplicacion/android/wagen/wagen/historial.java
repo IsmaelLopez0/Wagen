@@ -2,6 +2,7 @@ package aplicacion.android.wagen.wagen;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,39 +38,7 @@ public class historial extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private String idUsuario;
-    private ListView lActi, lComp;
 
-    /*public historial(){
-
-    }
-
-    public historial(String idUsuario){
-        this.idUsuario = idUsuario;
-        enlistar();
-    }*/
-
-    public void enlistar(){
-        lActi = (ListView) findViewById(R.id.tabItem);
-        lComp = (ListView) findViewById(R.id.tabItem2);
-        ArrayList<String> activos = new ArrayList<String>();
-        ArrayList<String> completos = new ArrayList<String>();
-        ArrayAdapter<String> adaptadorActivos;
-        ArrayAdapter<String> adaptadorCompletos;
-        String[] estado = {"activo", "activo", "lkasdgf", "kuasdftgi", "activo",};
-        for(int i=0; i<5; i++){
-            if(estado[i] != "activo"){
-                activos.add(i+"");
-            }else{
-                completos.add(i+"");
-            }
-        }
-        adaptadorActivos = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activos);
-        lActi.setAdapter(adaptadorActivos);
-
-        adaptadorCompletos = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, completos);
-        lComp.setAdapter(adaptadorCompletos);
-    }
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -79,7 +49,7 @@ public class historial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -92,7 +62,7 @@ public class historial extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
