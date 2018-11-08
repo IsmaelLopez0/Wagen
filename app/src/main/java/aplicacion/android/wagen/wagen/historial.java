@@ -28,9 +28,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class historial extends FragmentActivity implements ActionBar.TabListener {
+    private List<Solcitudes> listaSolicitudes;
+    private ViewPager contenedor;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -51,7 +58,8 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
-
+        listaSolicitudes = new ArrayList<>();
+        contenedor = findViewById(R.id.container);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +114,23 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
     }
+
+    ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            listaSolicitudes.clear();
+            if (dataSnapshot.exists()){
+                Solcitudes solicitud = dataSnapshot.getValue(Solcitudes.class);
+                listaSolicitudes.add(solicitud);
+            }
+            contenedor.add
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     /**
      * A placeholder fragment containing a simple view.
