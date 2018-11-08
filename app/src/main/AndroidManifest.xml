@@ -23,6 +23,7 @@
         <activity android:name=".solicitud_acept_canc" />
         <activity android:name=".solicitud_creacion" />
         <activity android:name=".CrearCuenta" />
+        <activity android:name=".piedidosActuales"></activity>
     </application>
 
 </manifest>
