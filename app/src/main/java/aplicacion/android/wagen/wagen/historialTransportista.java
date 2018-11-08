@@ -6,6 +6,8 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -23,9 +25,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class historialTransportista extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private SolicitudAdapter adapter;
+    private List<Solcitudes> SolicitudesList;
+    private FirebaseUser IDU;
+    private FirebaseAuth auth;
+    private DatabaseReference dbReference;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,9 +62,36 @@ public class historialTransportista extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial_transportista);
+        recyclerView = findViewById(R.id.Recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SolicitudesList = new ArrayList<>();
+        adapter = new SolicitudAdapter(this, SolicitudesList);
+        recyclerView.setAdapter(adapter);
+        auth = FirebaseAuth.getInstance();
 
+        dbReference = FirebaseDatabase.getInstance().getReference("Solicitudes");
+        dbReference.addValueEventListener(postListener);
     }
 
+    ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            SolicitudesList.clear();
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Solcitudes solicitud = snapshot.getValue(Solcitudes.class);
+                    SolicitudesList.add(solicitud);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

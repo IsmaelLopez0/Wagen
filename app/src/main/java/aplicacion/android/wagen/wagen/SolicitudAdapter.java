@@ -40,7 +40,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(mCtx,solicitud_acept_canc.class);
+                Intent intent = new Intent(mCtx,visualizar_peticion.class);
                 mCtx.startActivity(intent);
             }
         });
