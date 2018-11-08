@@ -8,6 +8,8 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 
 /**
@@ -61,11 +63,16 @@ public class activos extends ListFragment {
         }
     }
 
+    String[] estado = {"activo", "activo", "lkasdgf", "kuasdftgi", "activo",};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_activos, container, false);
+
+        ListAdapter adapter = new ArrayAdapter<T>(getActivity(), android.R.layout.simple_list_item_1, estado);
+
+
         return rootView;
     }
 
