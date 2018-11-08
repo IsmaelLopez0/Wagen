@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 abrirCrear();
+                finish();
             }
         });
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void abrirCrear(){
-        Intent intent = new Intent(getApplicationContext(), CrearCuenta.class);
+        Intent intent = new Intent(this, CrearCuenta.class);
         startActivity(intent);
     }
 

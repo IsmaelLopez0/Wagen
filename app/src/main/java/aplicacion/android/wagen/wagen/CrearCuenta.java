@@ -19,42 +19,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CrearCuenta extends AppCompatActivity {
+    private FirebaseAuth auth;
     Spinner Spin;
     Button boton;
     EditText Nombre,Apellidos,CorreoElectronico,TipoUsuario,Contraseña;
-    private FirebaseAuth auth;
-    DatabaseReference DBUsuarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_cuenta);
         Spin = findViewById(R.id.Spin);
-        auth = FirebaseAuth.getInstance();
         Nombre = findViewById(R.id.txtNombre);
         Apellidos = findViewById(R.id.txtApellidos);
         CorreoElectronico = findViewById(R.id.txtCorreo);
         Contraseña = findViewById(R.id.txtContraseña);
         boton = findViewById(R.id.btnCrearCuenta);
-        DBUsuarios=FirebaseDatabase.getInstance().getReference("Users");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.SpinerTipoUsuario, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spin.setAdapter(adapter);
+        auth = FirebaseAuth.getInstance();
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RegistrarUsuario();
-                abrirLogin();
                 finish();
             }
         });
-
     }
 
-    private void abrirLogin(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
     private void RegistrarUsuario() {
         final String nombre = Nombre.getText().toString().trim();
@@ -98,8 +90,7 @@ public class CrearCuenta extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            String id = DBUsuarios.push().getKey();
-                            Usuario usuario = new Usuario(nombre, apellidos, correo, tipousuario, contraseña,id);
+                            Usuario usuario = new Usuario(nombre, apellidos, correo, tipousuario, contraseña);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {

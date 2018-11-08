@@ -23,14 +23,6 @@
           }
         },
         {
-          "client_id": "332843590459-p778ajvdo6tsfqdl37tafavagfar1ud1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "aplicacion.android.wagen.wagen",
-            "certificate_hash": "b5654ebbc96667ec16d10fcbe9887bcbb16bf4f3"
-          }
-        },
-        {
           "client_id": "332843590459-i5la4o0rvm8m3au375oo6u9s67035qp8.apps.googleusercontent.com",
           "client_type": 3
         }
