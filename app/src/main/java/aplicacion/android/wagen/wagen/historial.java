@@ -85,6 +85,7 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
         });
 
         dbReference = FirebaseDatabase.getInstance().getReference("Solicitudes");
+        dbReference.addListenerForSingleValueEvent(postListener);
 
     }
 
