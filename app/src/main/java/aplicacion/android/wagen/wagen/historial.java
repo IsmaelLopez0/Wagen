@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -25,24 +26,26 @@ import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-ListAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, estado);
-setListAdapter(adapter);
-* */
+
 public class historial extends FragmentActivity implements ActionBar.TabListener {
     private List<Solcitudes> listaSolicitudes;
-    private ViewPager contenedor;
+    private RecyclerView contenedor;
+    private ListAdapter adapter;
+    DatabaseReference dbReference;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -65,6 +68,8 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
         setContentView(R.layout.activity_historial);
         listaSolicitudes = new ArrayList<>();
         contenedor = findViewById(R.id.container);
+        adapter = new ArrayAdapter<Solcitudes>(this,android.R.layout.simple_list_item_1,listaSolicitudes);
+        contenedor.setAdapter((RecyclerView.Adapter) adapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +79,12 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
             }
         });
 
+        dbReference = FirebaseDatabase.getInstance().getReference("Solicitudes");
+        dbReference.addListenerForSingleValueEvent(postListener);
+        String idUsuario=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query query= FirebaseDatabase.getInstance().getReference("Solicitudes")
+                .orderByChild("idSolicitud")
+                .equalTo(idUsuario);
     }
 
 
@@ -128,6 +139,7 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
                 Solcitudes solicitud = dataSnapshot.getValue(Solcitudes.class);
                 listaSolicitudes.add(solicitud);
             }
+            adapter.notify();
         }
 
         @Override
