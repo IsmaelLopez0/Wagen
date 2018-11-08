@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class historial extends AppCompatActivity {
+public class historialTransportista extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,14 +39,10 @@ public class historial extends AppCompatActivity {
     private String idUsuario;
     private ListView lActi, lComp;
 
-    /*public historial(){
-
-    }
-
-    public historial(String idUsuario){
+    public historialTransportista(String idUsuario){
         this.idUsuario = idUsuario;
         enlistar();
-    }*/
+    }
 
     public void enlistar(){
         lActi = (ListView) findViewById(R.id.tabItem);
@@ -57,7 +53,7 @@ public class historial extends AppCompatActivity {
         ArrayAdapter<String> adaptadorCompletos;
         String[] estado = {"activo", "activo", "lkasdgf", "kuasdftgi", "activo",};
         for(int i=0; i<5; i++){
-            if(estado[i] != "activo"){
+            if(estado[i] == "activo"){
                 activos.add(i+"");
             }else{
                 completos.add(i+"");
@@ -93,15 +89,6 @@ public class historial extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent productor = new Intent(getApplicationContext(), solicitud_creacion.class);
-                startActivity(productor);
-            }
-        });
 
     }
 

@@ -106,7 +106,8 @@ public class CrearCuenta extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Usuario user = new Usuario(nombre,apellidos,correo,tipousuario,contraseña);
+                            String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            Usuario user = new Usuario(nombre,apellidos,correo,tipousuario,contraseña,id);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
