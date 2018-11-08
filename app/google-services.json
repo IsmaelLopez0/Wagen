@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "332843590459",
+    "firebase_url": "https://wagen-c4519.firebaseio.com",
+    "project_id": "wagen-c4519",
+    "storage_bucket": "wagen-c4519.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332843590459:android:d351316f4da5c717",
+        "android_client_info": {
+          "package_name": "aplicacion.android.wagen.wagen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332843590459-i5la4o0rvm8m3au375oo6u9s67035qp8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL35y82RlkDFmTCFf9telbubknLBtw6x4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
