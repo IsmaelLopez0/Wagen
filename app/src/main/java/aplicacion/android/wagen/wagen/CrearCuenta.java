@@ -26,10 +26,8 @@ public class CrearCuenta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_crear_cuenta);
         Spin = findViewById(R.id.Spin);
-        auth = FirebaseAuth.getInstance();
         Nombre = findViewById(R.id.txtNombre);
         Apellidos = findViewById(R.id.txtApellidos);
         CorreoElectronico = findViewById(R.id.txtCorreo);
@@ -39,28 +37,15 @@ public class CrearCuenta extends AppCompatActivity {
                 R.array.SpinerTipoUsuario, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spin.setAdapter(adapter);
+        auth = FirebaseAuth.getInstance();
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RegistrarUsuario();
-                abrirLogin();
                 finish();
             }
         });
     }
-
-    private void abrirLogin(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    protected void onStart(){
-        super.onStart();
-        if(auth.getCurrentUser() != null){
-            //significa que el usuraio ya se logeo
-        }
-    }
-
 
 
     private void RegistrarUsuario() {
