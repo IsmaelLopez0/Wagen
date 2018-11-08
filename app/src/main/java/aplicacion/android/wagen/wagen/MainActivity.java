@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     Button BtnCrearC;
+    Button iniciarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +23,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        iniciarSesion= findViewById(R.id.btnInicia);
+        iniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrir();
+            }
+        });
+
     }
 
     private void abrirCrear(){
         Intent intent = new Intent(getApplicationContext(), CrearCuenta.class);
+        startActivity(intent);
+    }
+
+    private void abrir(){
+        Intent intent = new Intent(getApplicationContext(), solicitud_creacion.class);
         startActivity(intent);
     }
 }
