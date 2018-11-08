@@ -34,7 +34,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+ListAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, estado);
+setListAdapter(adapter);
+* */
 public class historial extends FragmentActivity implements ActionBar.TabListener {
     private List<Solcitudes> listaSolicitudes;
     private ViewPager contenedor;
@@ -123,7 +128,6 @@ public class historial extends FragmentActivity implements ActionBar.TabListener
                 Solcitudes solicitud = dataSnapshot.getValue(Solcitudes.class);
                 listaSolicitudes.add(solicitud);
             }
-            contenedor.add
         }
 
         @Override
