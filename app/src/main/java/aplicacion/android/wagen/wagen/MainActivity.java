@@ -70,10 +70,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void abrir(){
+    private void abrirProductor(){
+        Intent intent = new Intent(getApplicationContext(),historial.class);
+        startActivity(intent);
+    }
 
-        /*Intent intent = new Intent(getApplicationContext(), solicitud_acept_canc.class);
-        startActivity(intent);*/
+    private void abrirTransportista(){
+        Intent intent = new Intent(getApplicationContext(),historialTransportista.class);
+        startActivity(intent);
     }
 
 
@@ -118,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
                         query.addListenerForSingleValueEvent(postListener);
                         if(TipoUsuario!=null){
                             if(TipoUsuario.equals("Productor")){
-                                Toast.makeText(getApplicationContext(),"Interfaz Productor",Toast.LENGTH_SHORT).show();
+                                abrirProductor();
+                                finish();
                             }else if(TipoUsuario.equals("Transportista")){
-                                Toast.makeText(getApplicationContext(),"Interfaz Transportista",Toast.LENGTH_SHORT).show();
+                                abrirTransportista();
+                                finish();
                             }else if(TipoUsuario.equals("Trailero")){
                                 Toast.makeText(getApplicationContext(),"Interfaz Trailero",Toast.LENGTH_SHORT).show();
                             }
