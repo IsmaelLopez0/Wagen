@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    protected void onStart(){
+        super.onStart();
+        mDatabase=FirebaseDatabase.getInstance().getReference("Users");
+        mDatabase.addListenerForSingleValueEvent(postListener);
+        if(auth.getCurrentUser() != null){
+            //significa que el usuraio ya se logeo
+        }else{
+            IDU=auth.getCurrentUser().getUid();
+        }
+    }
+
     private void abrirCrear(){
         Intent intent = new Intent(this, CrearCuenta.class);
         startActivity(intent);
@@ -63,6 +75,22 @@ public class MainActivity extends AppCompatActivity {
         /*Intent intent = new Intent(getApplicationContext(), solicitud_acept_canc.class);
         startActivity(intent);*/
     }
+
+
+    ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.exists()){
+                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                TipoUsuario=usuario.tipoU;
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     private void login(){
         final String correo = CorreoElectronico.getText().toString().trim();
@@ -80,32 +108,25 @@ public class MainActivity extends AppCompatActivity {
             Contraseña.requestFocus();
             return;
         }
-
+        IDU=auth.getCurrentUser().getUid();
         auth.signInWithEmailAndPassword(correo,contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    IDU=auth.getCurrentUser().getUid();
-                    mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(IDU);
-                    ValueEventListener postListener = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Usuario usuario = dataSnapshot.getValue(Usuario.class);
-                            TipoUsuario=usuario.tipoU;
-                            if(TipoUsuario=="Productor"){
-                                Toast.makeText(getApplicationContext(),"Tipo de usuario: "+TipoUsuario,Toast.LENGTH_SHORT).show();
-                            }else if(TipoUsuario=="Transportista"){
-                                Toast.makeText(getApplicationContext(),"Tipo de usuario: "+TipoUsuario,Toast.LENGTH_SHORT).show();
-                            }else if(TipoUsuario=="Trailero"){
-                                Toast.makeText(getApplicationContext(),"Tipo de usuario: "+TipoUsuario,Toast.LENGTH_SHORT).show();
+                        IDU=auth.getCurrentUser().getUid();
+                        Query query = FirebaseDatabase.getInstance().getReference().child("Users").child(IDU);
+                        query.addListenerForSingleValueEvent(postListener);
+                        if(TipoUsuario!=null){
+                            if(TipoUsuario.equals("Productor")){
+                                Toast.makeText(getApplicationContext(),"Interfaz Productor",Toast.LENGTH_SHORT).show();
+                            }else if(TipoUsuario.equals("Transportista")){
+                                Toast.makeText(getApplicationContext(),"Interfaz Transportista",Toast.LENGTH_SHORT).show();
+                            }else if(TipoUsuario.equals("Trailero")){
+                                Toast.makeText(getApplicationContext(),"Interfaz Trailero",Toast.LENGTH_SHORT).show();
                             }
+                        }else{
+                            login();
                         }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    };
-                    mDatabase.addValueEventListener(postListener);
                     /*Intent intent= new Intent(MainActivity.this,CrearCuenta.class);
                     intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
