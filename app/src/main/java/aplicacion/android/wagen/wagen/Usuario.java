@@ -1,13 +1,17 @@
 package aplicacion.android.wagen.wagen;
 
 public class Usuario {
-    public String Nombre,Apellidos,Correo,tipoU,Contraseña;
+    public String Apellidos, Contraseña, Correo, ID, Nombre, tipoU;
 
-    public Usuario(String nombre, String apellidos, String correo, String tipoU, String contraseña) {
+    public Usuario(String nombre, String apellidos, String correo, String tipou, String contraseña) {
         Nombre = nombre;
         Apellidos = apellidos;
         Correo = correo;
-        this.tipoU = tipoU;
+        tipoU = tipou;
         Contraseña = contraseña;
+    }
+
+    public Usuario(){
+
     }
 }

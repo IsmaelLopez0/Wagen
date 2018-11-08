@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void abrir(){
-        Intent intent = new Intent(getApplicationContext(), solicitud_creacion.class);
+        Intent intent = new Intent(getApplicationContext(), solicitud_acept_canc.class);
         startActivity(intent);
     }
 }
